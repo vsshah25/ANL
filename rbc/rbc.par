@@ -1,0 +1,42 @@
+[GENERAL] 
+polynomialOrder = 9
+#startFrom = "restart.fld"
+stopAt = endTime
+endTime = 40 
+
+dt = targetCFL=4.0+max=0.020
+timeStepper = tombo2 
+subCyclingSteps = 2
+
+writeControl = runTime
+writeInterval = 2
+
+regularization = hpfrt + nModes = 1 + scalingCoeff = 15
+
+[PRESSURE]
+residualTol = 1e-04
+
+[VELOCITY]
+boundaryTypeMap = wall, wall
+density = 1.0
+viscosity = sqrt(7/1e8) # sqrt(PRA/RA) 
+residualTol = 1e-06
+
+[TEMPERATURE]
+boundaryTypeMap = inlet, insulated
+conductivity = 1/sqrt(7*1e8) # 1/sqrt(RA*PRA)
+rhoCp = 1.0
+residualTol = 1e-06
+
+[SCALAR01]   # lambda2
+solver = none
+
+[SCALAR02]   # moisture
+solver = none
+
+[SCALAR03]   # diameter
+solver = none
+
+[CASEDATA]
+DIA_P = 0.015
+RHO_P = 1.0
